@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = require("./app/models");
+const db = require("./models");
 const Role = db.role;
 
 db.sequelize.sync({force: true}).then(() => {
@@ -27,6 +27,10 @@ db.sequelize.sync({force: true}).then(() => {
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to Houseful." });
 });
+
+//routes
+require("./routes/auth.routes")(app);
+require("./routes/user.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
